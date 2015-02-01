@@ -1,0 +1,2 @@
+1@hourly 0 importPlayersCount php -f /srv/data/web/vhosts/steamstats.narno.org/cli/importPlayersCount.php
+1@daily 0 importApps php -f /srv/data/web/vhosts/steamstats.narno.org/cli/importApps.php

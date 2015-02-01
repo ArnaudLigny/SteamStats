@@ -1,0 +1,15 @@
+{
+    "name": "Narno/steamstats",
+    "description": "Steam stats",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arnaud Ligny",
+            "email": "arnaud@ligny.org"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "5.*",
+        "ext-mongo": ">=1.3.0"
+    }
+}

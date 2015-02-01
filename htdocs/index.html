@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steam stats</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/stock/highstock.js"></script>
+    <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+</head>
+<body>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+    <script type="text/javascript">
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+        var param_app = getUrlVars()['app'];
+        if (typeof param_app === 'undefined'){
+            param_app = '';
+        }
+        console.log('app=' + param_app);
+        $(function () {
+            $.getJSON('http://steamstats.narno.org/data.php?app=' + param_app + '#' + Date.now(), function (data) {
+                $('#container').highcharts('StockChart', {
+                    title : {
+                        text : 'Steam players count'
+                    },
+                    subtitle: {
+                        text: 'Game: ...'
+                    },
+                    rangeSelector : {
+                        buttons : [{
+                            type : 'hour',
+                            count : 1,
+                            text : '1h'
+                        }, {
+                            type : 'day',
+                            count : 1,
+                            text : '1D'
+                        }, {
+                            type : 'all',
+                            count : 1,
+                            text : 'All'
+                        }],
+                        selected : 1,
+                        inputEnabled : false
+                    },
+                    series : [{
+                        name : 'Players',
+                        data : data,
+                        type : 'area'
+                    }],
+                });
+                chart = $('#container').highcharts();
+                $.getJSON('http://steamstats.narno.org/app_name.php?app=' + param_app + '#' + Date.now(), function (data) {
+                    console.log(data);
+                    chart.setTitle(null, {text: 'Game: ' + data});
+                });
+            });
+        });
+    </script>
+</body>
+</html>
