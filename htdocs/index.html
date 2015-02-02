@@ -26,7 +26,13 @@
         console.log('app=' + param_app);
         $(function () {
             $.getJSON('http://steamstats.narno.org/data.php?app=' + param_app + '#' + Date.now(), function (data) {
-                $('#container').highcharts('StockChart', {
+                Highcharts.setOptions({
+			        global: {
+			            useUTC: false,
+						//timezoneOffset: -1 * 60
+			        }
+			    });
+				$('#container').highcharts('StockChart', {
                     title : {
                         text : 'Steam players count'
                     },
