@@ -43,5 +43,4 @@ foreach ($cursor as $document) {
 
 $time_end = microtime(true);
 $time = $time_end - $time_start;
-
 echo "$time s\n";
